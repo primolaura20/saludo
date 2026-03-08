@@ -2,10 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-
-<!-- importante para móviles -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Saludo Especial</title>
 
 <style>
@@ -18,32 +15,18 @@ body{
     align-items:center;
     font-family:Arial, sans-serif;
     background:linear-gradient(135deg,#ff758c,#ffb199);
-    overflow:hidden;
-    padding:20px;
 }
 
-/* tarjeta */
+/* tarjeta principal */
 .card{
     background:white;
     padding:30px;
     border-radius:20px;
     text-align:center;
-    box-shadow:0 10px 30px rgba(0,0,0,0.25);
-    animation:entrada 1s ease;
-    max-width:400px;
-    width:100%;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
 }
 
-h1{
-    font-size:28px;
-    margin-bottom:10px;
-}
-
-p{
-    font-size:18px;
-    color:#555;
-}
-
+/* botón */
 button{
     padding:14px 28px;
     border:none;
@@ -52,69 +35,50 @@ button{
     color:white;
     font-size:18px;
     cursor:pointer;
-    margin-top:10px;
 }
 
-button:active{
-    transform:scale(0.95);
-}
-
-#mensaje{
-    margin-top:20px;
-    font-size:20px;
-    display:none;
-}
-
-/* animación entrada */
-@keyframes entrada{
-    from{
-        opacity:0;
-        transform:translateY(30px)
-    }
-    to{
-        opacity:1;
-        transform:translateY(0)
-    }
-}
-
-/* corazones */
-.corazon{
-    position:absolute;
-    color:red;
-    font-size:24px;
-    animation:subir 6s linear infinite;
-}
-
-@keyframes subir{
-    from{
-        transform:translateY(100vh);
-        opacity:1
-    }
-    to{
-        transform:translateY(-10vh);
-        opacity:0
-    }
-}
-
-/* ajustes extra para pantallas pequeñas */
-@media (max-width:480px){
-
-.card{
-    padding:25px;
-}
-
-h1{
-    font-size:24px;
-}
-
-p{
-    font-size:16px;
-}
-
-button{
+/* fondo del popup */
+.popup{
+    position:fixed;
+    top:0;
+    left:0;
     width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+    display:none;
+    justify-content:center;
+    align-items:center;
 }
 
+/* ventana del mensaje */
+.popup-contenido{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    width:90%;
+    max-width:400px;
+    max-height:70vh;
+    overflow-y:auto; /* scroll si el mensaje es largo */
+    animation:aparecer 0.5s ease;
+}
+
+/* botón cerrar */
+.cerrar{
+    float:right;
+    cursor:pointer;
+    font-size:20px;
+}
+
+/* animación */
+@keyframes aparecer{
+    from{
+        transform:translateY(50px);
+        opacity:0;
+    }
+    to{
+        transform:translateY(0);
+        opacity:1;
+    }
 }
 
 </style>
@@ -123,41 +87,44 @@ button{
 <body>
 
 <div class="card">
-
-<h1>✨ ¡Hola! ✨</h1>
-<p>Tengo un saludo especial para ti</p>
-
-<button onclick="mostrar()">Abrir saludo 🎁</button>
-
-<div id="mensaje">
-🎉 ¡Te deseo un día increíble lleno de alegría y éxito! 🎉
+<h2>✨ Tengo un saludo para ti ✨</h2>
+<button onclick="abrir()">Abrir saludo 🎁</button>
 </div>
 
+<!-- POPUP -->
+<div id="popup" class="popup">
+
+<div class="popup-contenido">
+
+<span class="cerrar" onclick="cerrar()">✖</span>
+
+<h2>🎉 ¡Hola! 🎉</h2>
+
+<p>
+Te deseo un día lleno de alegría, éxito y muchas bendiciones ✨.
+</p>
+
+<p>
+Este mensaje puede ser largo. Si el texto continúa creciendo,
+aparecerá una barra de desplazamiento para que puedas leer todo
+el contenido sin que el diseño se rompa.
+</p>
+
+<p>
+💌 Gracias por tomarte el tiempo de abrir este saludo especial.
+</p>
+
+</div>
 </div>
 
 <script>
 
-function mostrar(){
-document.getElementById("mensaje").style.display="block";
-crearCorazones();
+function abrir(){
+document.getElementById("popup").style.display="flex";
 }
 
-function crearCorazones(){
-
-for(let i=0;i<25;i++){
-
-let heart=document.createElement("div");
-heart.className="corazon";
-heart.innerHTML="❤";
-
-heart.style.left=Math.random()*100+"vw";
-heart.style.fontSize=(20+Math.random()*25)+"px";
-heart.style.animationDuration=(3+Math.random()*3)+"s";
-
-document.body.appendChild(heart);
-
-}
-
+function cerrar(){
+document.getElementById("popup").style.display="none";
 }
 
 </script>
