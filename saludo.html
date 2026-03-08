@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Saludo Especial</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(135deg,#ff758c,#ffb199);
+    overflow:hidden;
+}
+
+/* tarjeta */
+.card{
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 15px 40px rgba(0,0,0,0.3);
+    animation:entrada 1s ease;
+    z-index:2;
+}
+
+h1{
+    font-size:38px;
+}
+
+p{
+    font-size:20px;
+    color:#555;
+}
+
+button{
+    padding:12px 25px;
+    border:none;
+    border-radius:30px;
+    background:#ff4d6d;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.1);
+    background:#e63956;
+}
+
+#mensaje{
+    margin-top:20px;
+    font-size:22px;
+    display:none;
+}
+
+/* animaciones */
+@keyframes entrada{
+    from{opacity:0; transform:translateY(40px)}
+    to{opacity:1; transform:translateY(0)}
+}
+
+/* corazones */
+.corazon{
+    position:absolute;
+    color:red;
+    font-size:20px;
+    animation:subir 6s linear infinite;
+}
+
+@keyframes subir{
+    from{transform:translateY(100vh); opacity:1}
+    to{transform:translateY(-10vh); opacity:0}
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+<h1>✨ ¡Hola! ✨</h1>
+<p>Tengo un saludo especial para ti</p>
+
+<button onclick="mostrar()">Abrir saludo 🎁</button>
+
+<div id="mensaje">
+🎉 ¡Te deseo un día increíble lleno de felicidad, éxito y buenas noticias! 🎉
+</div>
+</div>
+
+<script>
+function mostrar(){
+document.getElementById("mensaje").style.display="block";
+crearCorazones();
+}
+
+function crearCorazones(){
+for(let i=0;i<30;i++){
+let heart=document.createElement("div");
+heart.className="corazon";
+heart.innerHTML="❤";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(20+Math.random()*30)+"px";
+heart.style.animationDuration=(3+Math.random()*3)+"s";
+document.body.appendChild(heart);
+}
+}
+</script>
+
+</body>
+</html>
